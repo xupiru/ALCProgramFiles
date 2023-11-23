@@ -3,7 +3,7 @@ global scriptVersion := 4.7
 AutoUpdate()
 
 AutoUpdate() {
-	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ChupaCabra/main/Roteirizador"
+	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Roteirizador%20ChupaCabra.ahk"
 	URL_VERSION := "https://raw.githubusercontent.com/xupiru/ChupaCabra/main/Version"
 
 	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
