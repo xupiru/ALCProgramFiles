@@ -4,7 +4,7 @@ AutoUpdate()
 
 AutoUpdate() {
 	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Roteirizador%20ChupaCabra.ahk"
-	URL_VERSION := "https://raw.githubusercontent.com/xupiru/ChupaCabra/main/Version"
+	URL_VERSION := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Version"
 
 	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
 	whr.Open("GET", URL_VERSION)
