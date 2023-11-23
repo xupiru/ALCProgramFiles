@@ -3,7 +3,7 @@ global scriptVersion := 4.7
 AutoUpdate()
 
 AutoUpdate() {
-	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups
+	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
 	URL_VERSION := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Version"
 
 	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
