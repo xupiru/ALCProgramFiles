@@ -1,6 +1,4 @@
-global scriptVersion := 5
-
-AutoUpdate()
+global scriptVersion := 4.7
 
 AutoUpdate() {
 	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
@@ -11,15 +9,20 @@ AutoUpdate() {
 	whr.Send()
 	onlineVersion := whr.ResponseText
 
-	if (onlineVersion > scriptVersion) 
-	{
+	; Remover caracteres não numéricos para garantir comparação numérica correta
+	onlineVersion := StrReplace(onlineVersion, ".", "") + 0
+	scriptVersion := StrReplace(scriptVersion, ".", "") + 0
+
+	if (onlineVersion > scriptVersion) {
 		UrlDownloadToFile, % URL_SCRIPT, % A_ScriptFullPath
-        MsgBox,,, Atualizando, 1
+		MsgBox,,, Atualizando, 1
 		Reload
+	} else {
+		MsgBox,,, Atualizado V%scriptVersion%, 1
 	}
 }
 
-MsgBox,,, Atualizado V%scriptVersion%, 1
+AutoUpdate()
 
 #Persistent
 #NoEnv
