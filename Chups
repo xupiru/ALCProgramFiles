@@ -1,23 +1,24 @@
 global scriptVersion := 4.8
 
-	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
-	URL_VERSION := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Version"
+URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
+URL_VERSION := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Version"
 
-	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-	whr.Open("GET", URL_VERSION)
-	whr.Send()
-	onlineVersion := whr.ResponseText
+whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+whr.Open("GET", URL_VERSION)
+whr.Send()
+onlineVersion := whr.ResponseText
 
-	if (onlineVersion > scriptVersion) 
-	{
-		UrlDownloadToFile, % URL_SCRIPT, % A_ScriptFullPath
-		MsgBox,,, Atualizando, 1
-		Reload
-	} 
-	else if (onlineVersion = scriptVersion) 
-	{
-		MsgBox,,, Atualizado V%scriptVersion%, 1
-	}
+; Convertendo as versões para números
+onlineVersion := Float(onlineVersion)
+scriptVersion := Float(scriptVersion)
+
+if (onlineVersion > scriptVersion) {
+    UrlDownloadToFile, %URL_SCRIPT%, %A_ScriptFullPath%
+    MsgBox,,, Atualizando, 1
+    Reload
+} else if (onlineVersion = scriptVersion) {
+    MsgBox,,, Atualizado V%scriptVersion%, 1
+}
 #Persistent
 #NoEnv
 #HotKeyInterval 1
