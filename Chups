@@ -1,24 +1,32 @@
-global scriptVersion := 4.8
+global scriptVersion := "4.7"
 
-URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
-URL_VERSION := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Version"
+AutoUpdate() {
+	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
+	URL_VERSION := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Version"
 
-whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-whr.Open("GET", URL_VERSION)
-whr.Send()
-onlineVersion := whr.ResponseText
+	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+	whr.Open("GET", URL_VERSION)
+	whr.Send()
+	onlineVersion := whr.ResponseText
 
-; Convertendo as versões para números
-onlineVersion := Float(onlineVersion)
-scriptVersion := Float(scriptVersion)
+	; Remover espaços em branco e caracteres não numéricos para comparação de versões
+	onlineVersion := StrReplace(onlineVersion, ".", "")
+	onlineVersion := StrReplace(onlineVersion, " ", "")  ; Remover espaços, se houver
 
-if (onlineVersion > scriptVersion) {
-    UrlDownloadToFile, %URL_SCRIPT%, %A_ScriptFullPath%
-    MsgBox,,, Atualizando, 1
-    Reload
-} else if (onlineVersion = scriptVersion) {
-    MsgBox,,, Atualizado V%scriptVersion%, 1
+	scriptVersion := StrReplace(scriptVersion, ".", "")
+
+	; Comparar as versões como strings
+	if (onlineVersion > scriptVersion) {
+		UrlDownloadToFile, % URL_SCRIPT, % A_ScriptFullPath
+		MsgBox,,, Atualizando, 1
+		Reload
+	} else {
+		MsgBox,,, Atualizado V%scriptVersion%, 1
+	}
 }
+
+AutoUpdate()
+
 #Persistent
 #NoEnv
 #HotKeyInterval 1
