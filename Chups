@@ -3,8 +3,8 @@ global scriptVersion := 5.5
 AutoUpdate()
 
 AutoUpdate() {
-	URL_SCRIPT := "https://programadordanasa.000webhostapp.com/Roteirizador"
-	URL_VERSION := "https://programadordanasa.000webhostapp.com/UpdateRoteirizador"
+	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
+	URL_VERSION := "https://github.com/xupiru/ALCProgramFiles/blob/main/Version"
 
 	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
 	whr.Open("GET", URL_VERSION)
