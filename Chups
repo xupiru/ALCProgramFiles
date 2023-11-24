@@ -1,4 +1,4 @@
-global scriptVersion := "4.8"
+global scriptVersion := 4.8
 
 AutoUpdate() {
 	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
