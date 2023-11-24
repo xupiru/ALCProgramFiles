@@ -1,6 +1,5 @@
 global scriptVersion := 4.8
 
-AutoUpdate() {
 	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
 	URL_VERSION := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Version"
 
@@ -19,8 +18,6 @@ AutoUpdate() {
 	{
 		MsgBox,,, Atualizado V%scriptVersion%, 1
 	}
-}
-AutoUpdate()
 #Persistent
 #NoEnv
 #HotKeyInterval 1
