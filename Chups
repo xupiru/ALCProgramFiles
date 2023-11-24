@@ -1,25 +1,41 @@
-global scriptVersion := 5.5
+global scriptVersion := 5
+
+AutoUpdate() {
+    URL_SCRIPT := "https://pastebin.com/raw/eee2NHYU"
+    URL_VERSION := "https://pastebin.com/raw/YK1dNWVt"
+
+    whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+    whr.Open("GET", URL_VERSION)
+    whr.Send()
+    
+    if (whr.Status = 200) {
+        onlineVersion := Trim(whr.ResponseText)
+        
+        ; Verifica se a versão online é um número válido
+        if (IsNumber(onlineVersion)) {
+            onlineVersion := StrReplace(onlineVersion, ",", ".")  ; Trata vírgulas como separadores decimais
+
+            if (onlineVersion > scriptVersion) {
+                MsgBox,,, Atualizando, 1
+                UrlDownloadToFile, %URL_SCRIPT%, %A_ScriptFullPath%
+                MsgBox,,, Atualização concluída para a versão V%onlineVersion%, 1
+                ExitApp  ; Sai do script após a atualização
+            } else {
+                MsgBox,,, Já está na versão mais recente V%scriptVersion%, 1
+            }
+        } else {
+            MsgBox,,, Versão online inválida, 1
+        }
+    } else {
+        MsgBox,,, Falha ao verificar a versão online, 1
+    }
+}
 
 AutoUpdate()
 
-AutoUpdate() {
-	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
-	URL_VERSION := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Version"
-
-	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-	whr.Open("GET", URL_VERSION)
-	whr.Send()
-	onlineVersion := whr.ResponseText
-
-	if (onlineVersion > scriptVersion) 
-	{
-		UrlDownloadToFile, % URL_SCRIPT, % A_ScriptFullPath
-        MsgBox,,, Atualizando, 1
-		Reload
-	}
+IsNumber(number) {
+    return RegExMatch(number, "^\d+(\.\d+)?$")
 }
-
-MsgBox,,, Atualizado V%scriptVersion%, 1
 
 #Persistent
 #NoEnv
