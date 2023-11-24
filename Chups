@@ -1,29 +1,40 @@
 global scriptVersion := "4.7"
+updating := false  ; Variável para controlar o processo de atualização
 
 AutoUpdate() {
-	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
-	URL_VERSION := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Version"
+    global scriptVersion, updating
+    URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
+    URL_VERSION := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Version"
 
-	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
-	whr.Open("GET", URL_VERSION)
-	whr.Send()
-	onlineVersion := whr.ResponseText
+    if (updating) {
+        ; Se já estiver atualizando, saia da função
+        return
+    }
 
-	; Remover espaços em branco e caracteres não numéricos para comparação de versões
-	onlineVersion := StrReplace(onlineVersion, ".", "")
-	onlineVersion := StrReplace(onlineVersion, " ", "")  ; Remover espaços, se houver
+    updating := true  ; Indica que estamos atualizando agora
 
-	scriptVersion := StrReplace(scriptVersion, ".", "")
+    whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
+    whr.Open("GET", URL_VERSION)
+    whr.Send()
+    onlineVersion := whr.ResponseText
 
-	; Comparar as versões como strings
-	if (onlineVersion > scriptVersion) {
-		UrlDownloadToFile, % URL_SCRIPT, % A_ScriptFullPath
-		scriptVersion := StrReplace(onlineVersion, "", ".", 0)  ; Atualizar a versão local
-		MsgBox,,, Atualizando para a versão V%scriptVersion%, 1
-		Reload
-	} else {
-		MsgBox,,, Atualizado V%scriptVersion%, 1
-	}
+    ; Remover espaços em branco e caracteres não numéricos para comparação de versões
+    onlineVersion := StrReplace(onlineVersion, ".", "")
+    onlineVersion := StrReplace(onlineVersion, " ", "")  ; Remover espaços, se houver
+
+    scriptVersion := StrReplace(scriptVersion, ".", "")
+
+    ; Comparar as versões como strings
+    if (onlineVersion > scriptVersion) {
+        UrlDownloadToFile, % URL_SCRIPT, % A_ScriptFullPath
+        scriptVersion := StrReplace(onlineVersion, "", ".", 0)  ; Atualizar a versão local
+        updating := false  ; Restaurar o status de atualização para falso
+        MsgBox,,, Atualizando para a versão V%scriptVersion%, 1
+        Reload
+    } else {
+        updating := false  ; Restaurar o status de atualização para falso
+        MsgBox,,, Atualizado V%scriptVersion%, 1
+    }
 }
 
 AutoUpdate()
