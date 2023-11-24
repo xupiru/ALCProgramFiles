@@ -4,7 +4,7 @@ AutoUpdate()
 
 AutoUpdate() {
 	URL_SCRIPT := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Chups"
-	URL_VERSION := "https://github.com/xupiru/ALCProgramFiles/blob/main/Version"
+	URL_VERSION := "https://raw.githubusercontent.com/xupiru/ALCProgramFiles/main/Version"
 
 	whr := ComObjCreate("WinHttp.WinHttpRequest.5.1")
 	whr.Open("GET", URL_VERSION)
