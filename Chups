@@ -18,7 +18,8 @@ AutoUpdate() {
 	; Comparar as versões como strings
 	if (onlineVersion > scriptVersion) {
 		UrlDownloadToFile, % URL_SCRIPT, % A_ScriptFullPath
-		MsgBox,,, Atualizando, 1
+		scriptVersion := StrReplace(onlineVersion, "", ".", 0)  ; Atualizar a versão local
+		MsgBox,,, Atualizando para a versão V%scriptVersion%, 1
 		Reload
 	} else {
 		MsgBox,,, Atualizado V%scriptVersion%, 1
