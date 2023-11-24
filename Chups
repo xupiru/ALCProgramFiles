@@ -16,7 +16,7 @@ AutoUpdate() {
 		MsgBox,,, Atualizando, 1
 		Reload
 	} 
-	else 
+	else if (onlineVersion = scriptVersion) 
 	{
 		MsgBox,,, Atualizado V%scriptVersion%, 1
 	}
